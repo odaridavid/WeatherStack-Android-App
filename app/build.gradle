@@ -16,7 +16,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "WEATHERSTACK_ACCESS_KEY", "\"${project.hasProperty("WEATHERSTACK_ACCESS_KEY") ? WEATHERSTACK_ACCESS_KEY : System.getenv("WEATHERSTACK_ACCESS_KEY")}\"")
+        buildConfigField("String", "WEATHERSTACK_ACCESS_KEY", getWeatherStackAccessKey())
     }
 
     buildTypes {
@@ -54,7 +54,16 @@ dependencies {
 
     // Square
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.moshi:moshi:1.12.0'
 
     // Test Libs
     testImplementation 'junit:junit:4.13.2'
+}
+
+String getWeatherStackAccessKey(){
+    Properties properties = new Properties()
+    def propertiesFile = project.rootProject.file('local.properties')
+    if (!propertiesFile.exists()) return System.getenv("WEATHERSTACK_ACCESS_KEY")
+    properties.load(propertiesFile.newDataInputStream())
+    return "\"${properties.getProperty('WEATHERSTACK_ACCESS_KEY')}\""
 }
