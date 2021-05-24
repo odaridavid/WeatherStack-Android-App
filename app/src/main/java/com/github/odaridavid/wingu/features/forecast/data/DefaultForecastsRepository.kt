@@ -6,7 +6,7 @@ import com.github.odaridavid.wingu.shared.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 
-internal class DefaultForecastsRepository(
+internal class DefaultForecastsRepository constructor(
     private val remoteDataSource: ForecastsRemoteDataSource,
     private val localDataSource: ForecastsLocalDataSource
 ) : ForecastsRepository {

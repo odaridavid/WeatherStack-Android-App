@@ -3,7 +3,7 @@ package com.github.odaridavid.wingu.features.forecast.data.mappers
 import com.github.odaridavid.wingu.api.models.CurrentWeatherApiResponse
 import com.github.odaridavid.wingu.features.forecast.domain.CurrentWeather
 
-internal class ApiToDomainMapper {
+internal object ApiToDomainMapper {
 
     fun toDomainModel(currentWeatherApiResponse: CurrentWeatherApiResponse): CurrentWeather =
         CurrentWeather(

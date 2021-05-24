@@ -1,5 +1,6 @@
 package com.github.odaridavid.wingu.features.forecast.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.odaridavid.wingu.features.forecast.domain.CurrentWeather
@@ -36,6 +37,7 @@ internal class ForecastViewModel(
                 .collect { currentWeatherResult ->
                     when(currentWeatherResult){
                         is Result.Success<CurrentWeather> -> {
+                            Log.d("Response:S","${currentWeatherResult.data}")
                             _currentWeather.value = currentWeatherResult
                         }
                         is Result.Error<CurrentWeather> ->{
