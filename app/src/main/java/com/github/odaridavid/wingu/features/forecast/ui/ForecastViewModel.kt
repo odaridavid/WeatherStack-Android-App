@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.odaridavid.wingu.features.forecast.domain.CurrentWeather
-import com.github.odaridavid.wingu.features.forecast.domain.GetTodaysWeatherForecastUseCase
+import com.github.odaridavid.wingu.features.forecast.domain.GetCurrentWeatherForecastUseCase
 import com.github.odaridavid.wingu.shared.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 internal class ForecastViewModel(
-    private val getTodaysWeatherForecastUseCase: GetTodaysWeatherForecastUseCase
+    private val getCurrentWeatherForecastUseCase: GetCurrentWeatherForecastUseCase
 ) : ViewModel() {
 
     private val _currentWeather = MutableStateFlow(
@@ -33,7 +33,7 @@ internal class ForecastViewModel(
 
     init {
         viewModelScope.launch {
-            getTodaysWeatherForecastUseCase.execute(location = "New York")
+            getCurrentWeatherForecastUseCase.execute(location = "New York")
                 .collect { currentWeatherResult ->
                     when(currentWeatherResult){
                         is Result.Success<CurrentWeather> -> {

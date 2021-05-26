@@ -1,17 +1,17 @@
 package com.github.odaridavid.wingu.features.forecast.data.mappers
 
-import com.github.odaridavid.wingu.api.models.CurrentWeatherApiResponse
+import com.github.odaridavid.wingu.api.models.CurrentWeatherResponse
 import com.github.odaridavid.wingu.features.forecast.domain.CurrentWeather
 
 internal object ApiToDomainMapper {
 
-    fun toDomainModel(currentWeatherApiResponse: CurrentWeatherApiResponse): CurrentWeather =
+    fun toDomainModel(currentWeatherResponse: CurrentWeatherResponse): CurrentWeather =
         CurrentWeather(
-            location = currentWeatherApiResponse.location.name,
-            temperature = "${currentWeatherApiResponse.current.temperature}",
-            weatherDescriptions = currentWeatherApiResponse.current.weatherDescriptions,
-            weatherIcons = currentWeatherApiResponse.current.weatherIcons,
-            temperatureFeelsLike = "Feels like ${currentWeatherApiResponse.current.feelsLike}"
+            location = currentWeatherResponse.location.name,
+            temperature = "${currentWeatherResponse.current.temperature}",
+            weatherDescriptions = currentWeatherResponse.current.weatherDescriptions,
+            weatherIcons = currentWeatherResponse.current.weatherIcons,
+            temperatureFeelsLike = "Feels like ${currentWeatherResponse.current.feelsLike}"
         )
 
 }

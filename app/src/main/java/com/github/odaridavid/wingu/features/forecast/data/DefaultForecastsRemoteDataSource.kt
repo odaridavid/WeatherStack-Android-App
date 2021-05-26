@@ -2,7 +2,7 @@ package com.github.odaridavid.wingu.features.forecast.data
 
 import com.github.odaridavid.wingu.api.WeatherStackApiService
 import com.github.odaridavid.wingu.api.models.ApiErrorResponse
-import com.github.odaridavid.wingu.api.models.CurrentWeatherApiResponse
+import com.github.odaridavid.wingu.api.models.CurrentWeatherResponse
 import com.github.odaridavid.wingu.api.utils.ApiErrorHandler
 import com.github.odaridavid.wingu.features.forecast.data.mappers.ApiToDomainMapper
 import com.github.odaridavid.wingu.features.forecast.domain.CurrentWeather
@@ -18,7 +18,7 @@ internal class DefaultForecastsRemoteDataSource(
 
     override suspend fun getCurrentWeather(location: String): Flow<Result<CurrentWeather>> {
         val apiRequest = apiService.getCurrentWeather(location = location)
-        val response: CurrentWeatherApiResponse? = apiRequest.body()
+        val response: CurrentWeatherResponse? = apiRequest.body()
         return flow {
             if (apiRequest.isSuccessful && response != null) {
                 if (response.isSuccess == null || response.isSuccess == true) {
@@ -52,10 +52,10 @@ internal class DefaultForecastsRemoteDataSource(
             Result.Error(message = message ?: "Could not fetch current weather")
         }
 
-    private fun provideSuccessResult(response: CurrentWeatherApiResponse) =
+    private fun provideSuccessResult(response: CurrentWeatherResponse) =
         Result.Success(
             data = ApiToDomainMapper.toDomainModel(
-                currentWeatherApiResponse = response
+                currentWeatherResponse = response
             )
         )
 

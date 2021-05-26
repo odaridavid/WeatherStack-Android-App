@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CurrentWeatherApiResponse(
+data class CurrentWeatherResponse(
     val request: RequestInfo,
     val location: LocationInfo,
     val current: CurrentWeatherInfo,

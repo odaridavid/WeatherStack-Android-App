@@ -3,7 +3,7 @@ package com.github.odaridavid.wingu.features.forecast.di
 import com.github.odaridavid.wingu.api.WeatherStackApiService
 import com.github.odaridavid.wingu.features.forecast.data.*
 import com.github.odaridavid.wingu.features.forecast.domain.ForecastsRepository
-import com.github.odaridavid.wingu.features.forecast.domain.GetTodaysWeatherForecastUseCase
+import com.github.odaridavid.wingu.features.forecast.domain.GetCurrentWeatherForecastUseCase
 import com.github.odaridavid.wingu.features.forecast.ui.ForecastViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -21,7 +21,7 @@ val forecastFeatureModule = module {
         )
     }
 
-    single { provideGetTodaysWeatherForecastUseCase(forecastsRepository = get()) }
+    single { provideGetCurrentWeatherForecastUseCase(forecastsRepository = get()) }
 
     viewModel { ForecastViewModel(getTodaysWeatherForecastUseCase = get()) }
 
@@ -44,7 +44,7 @@ private fun provideForecastsRepository(
         remoteDataSource = forecastsRemoteDataSource
     )
 
-private fun provideGetTodaysWeatherForecastUseCase(
+private fun provideGetCurrentWeatherForecastUseCase(
     forecastsRepository: ForecastsRepository
-): GetTodaysWeatherForecastUseCase =
-    GetTodaysWeatherForecastUseCase(forecastsRepository = forecastsRepository)
+): GetCurrentWeatherForecastUseCase =
+    GetCurrentWeatherForecastUseCase(forecastsRepository = forecastsRepository)
