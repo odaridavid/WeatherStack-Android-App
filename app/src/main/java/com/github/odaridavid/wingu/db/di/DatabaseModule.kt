@@ -7,7 +7,7 @@ import com.github.odaridavid.wingu.db.WinguDatabase
 import org.koin.dsl.module
 
 val databaseModule = module {
-    // TODO Initialise db once everything is set
+    // TODO Initialise db once everything is set and modify queries if need be
 }
 
 private fun provideWinguDatabase(context: Context): WinguDatabase =

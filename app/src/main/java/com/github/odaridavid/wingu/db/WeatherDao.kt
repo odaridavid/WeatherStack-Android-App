@@ -9,7 +9,6 @@ import com.github.odaridavid.wingu.db.models.WeatherForecastEntity
 @Dao
 internal interface WeatherDao {
 
-    // TODO Implement Dao Queries
     @Query("SELECT * FROM current_weather LIMIT 1")
     fun getCurrentWeather(): CurrentWeatherEntity
 
