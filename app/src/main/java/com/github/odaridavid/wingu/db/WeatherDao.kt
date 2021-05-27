@@ -3,21 +3,23 @@ package com.github.odaridavid.wingu.db
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.github.odaridavid.wingu.db.models.CurrentWeatherEntity
+import com.github.odaridavid.wingu.db.models.WeatherForecastEntity
 
 @Dao
 internal interface WeatherDao {
 
     // TODO Implement Dao Queries
-    @Query("")
-    fun getCurrentWeather()
+    @Query("SELECT * FROM current_weather LIMIT 1")
+    fun getCurrentWeather(): CurrentWeatherEntity
 
     @Insert
-    fun saveCurrentWeather()
+    fun saveCurrentWeather(currentWeatherEntity: CurrentWeatherEntity)
 
-    @Query("")
-    fun getWeatherForecast()
+    @Query("SELECT * FROM weather_forecast WHERE date=:date")
+    fun getWeatherForecast(date: String): List<WeatherForecastEntity>
 
     @Insert
-    fun saveWeatherForecast()
+    fun saveWeatherForecast(vararg weatherForecastEntity: WeatherForecastEntity)
 
 }

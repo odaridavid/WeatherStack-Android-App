@@ -3,8 +3,9 @@ package com.github.odaridavid.wingu.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.github.odaridavid.wingu.db.models.CurrentWeatherEntity
+import com.github.odaridavid.wingu.db.models.WeatherForecastEntity
 
-@Database(entities = [CurrentWeatherEntity::class], version = 1, exportSchema = false)
+@Database(entities = [CurrentWeatherEntity::class,WeatherForecastEntity::class], version = 1, exportSchema = false)
 internal abstract class WinguDatabase : RoomDatabase() {
 
     abstract fun getForecastsDao(): WeatherDao
