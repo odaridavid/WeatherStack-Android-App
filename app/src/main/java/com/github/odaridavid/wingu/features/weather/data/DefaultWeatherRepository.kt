@@ -19,8 +19,10 @@ internal class DefaultWeatherRepository constructor(
                 emit(Result.Error(throwable = throwable))
             }
 
-    override suspend fun getWeatherForecast(location: String): Flow<Result<WeatherForecast>> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getWeatherForecast(location: String): Flow<Result<WeatherForecast>> =
+        remoteDataSource.getWeatherForecast(location = location)
+            .catch { throwable ->
+                emit(Result.Error(throwable = throwable))
+            }
 
 }

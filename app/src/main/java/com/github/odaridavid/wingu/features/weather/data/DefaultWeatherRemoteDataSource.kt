@@ -1,10 +1,12 @@
 package com.github.odaridavid.wingu.features.weather.data
 
 import com.github.odaridavid.wingu.api.WeatherStackApiService
-import com.github.odaridavid.wingu.api.models.ApiErrorResponse
 import com.github.odaridavid.wingu.api.models.CurrentWeatherResponse
-import com.github.odaridavid.wingu.api.utils.ApiErrorHandler
+import com.github.odaridavid.wingu.api.models.WeatherForecastResponse
 import com.github.odaridavid.wingu.features.weather.data.mappers.CurrentWeatherResponseMapper
+import com.github.odaridavid.wingu.features.weather.data.mappers.WeatherForecastResponseMapper
+import com.github.odaridavid.wingu.features.weather.data.utils.provideErrorResult
+import com.github.odaridavid.wingu.features.weather.data.utils.provideMappedSuccessResult
 import com.github.odaridavid.wingu.features.weather.domain.models.CurrentWeather
 import com.github.odaridavid.wingu.features.weather.domain.models.WeatherForecast
 import com.github.odaridavid.wingu.shared.Result
@@ -23,46 +25,45 @@ internal class DefaultWeatherRemoteDataSource(
         return flow {
             if (apiRequest.isSuccessful && response != null) {
                 if (response.isSuccess == null || response.isSuccess == true) {
-                    emit(provideSuccessResult(response = response))
+                    emit(
+                        provideMappedSuccessResult(
+                            response = response,
+                            mapper = CurrentWeatherResponseMapper
+                        )
+                    )
                 } else {
-                    emit(provideErrorResult(response = response.errorResponse))
+                    emit(provideErrorResult<CurrentWeather>(response = response.errorResponse))
                 }
             } else {
                 emit(
-                    provideErrorResult(message = apiRequest.message())
+                    provideErrorResult<CurrentWeather>(message = apiRequest.message())
                 )
             }
         }
     }
 
     override suspend fun getWeatherForecast(location: String): Flow<Result<WeatherForecast>> {
-        TODO("Not yet implemented")
-    }
-
-    // endregion
-
-    // region Private Api
-
-    private fun provideErrorResult(
-        response: ApiErrorResponse? = null,
-        message: String? = null
-    ): Result.Error<CurrentWeather> =
-        if (response != null) {
-            Result.Error(
-                message = ApiErrorHandler.getUserFriendlyErrorMessage(
-                    apiErrorResponse = response
+        val apiRequest = apiService.getWeatherForecast(location = location)
+        val response: WeatherForecastResponse? = apiRequest.body()
+        return flow {
+            if (apiRequest.isSuccessful && response != null) {
+                if (response.isSuccess == null || response.isSuccess == true) {
+                    emit(
+                        provideMappedSuccessResult(
+                            response = response,
+                            mapper = WeatherForecastResponseMapper
+                        )
+                    )
+                } else {
+                    emit(provideErrorResult<WeatherForecast>(response = response.errorResponse))
+                }
+            } else {
+                emit(
+                    provideErrorResult<WeatherForecast>(message = apiRequest.message())
                 )
-            )
-        } else {
-            Result.Error(message = message ?: "Could not fetch current weather")
+            }
         }
-
-    private fun provideSuccessResult(response: CurrentWeatherResponse) =
-        Result.Success(
-            data = CurrentWeatherResponseMapper.toDomainModel(
-                currentWeatherResponse = response
-            )
-        )
+    }
 
     // endregion
 }

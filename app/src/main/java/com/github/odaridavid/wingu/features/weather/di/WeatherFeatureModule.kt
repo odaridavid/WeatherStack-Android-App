@@ -6,7 +6,7 @@ import com.github.odaridavid.wingu.features.weather.domain.WeatherRepository
 import com.github.odaridavid.wingu.features.weather.domain.usecases.GetCurrentWeatherUseCase
 import com.github.odaridavid.wingu.features.weather.domain.usecases.GetWeatherForecastUseCase
 import com.github.odaridavid.wingu.features.weather.ui.CurrentWeatherViewModel
-import com.github.odaridavid.wingu.features.weather.ui.TomorrowsWeatherViewModel
+import com.github.odaridavid.wingu.features.weather.ui.TomorrowsWeatherForecastViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -34,7 +34,7 @@ val weatherFeatureModule = module {
     }
 
     viewModel {
-        TomorrowsWeatherViewModel(
+        TomorrowsWeatherForecastViewModel(
             getWeatherForecastUseCase = get()
         )
     }

@@ -10,13 +10,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-internal class TomorrowsWeatherViewModel(
+internal class TomorrowsWeatherForecastViewModel(
     private val getWeatherForecastUseCase: GetWeatherForecastUseCase
 ) : ViewModel() {
 
     // region Members
 
-    private val _weatherForecast = MutableStateFlow(Result.Success(data = WeatherForecast()))
+    private val _weatherForecast = MutableStateFlow(
+        Result.Success(
+            data = WeatherForecast(
+                minTemp = "",
+                maxTemp = "",
+                date = ""
+            )
+        )
+    )
     val weatherForecast: StateFlow<Result.Success<WeatherForecast>> = _weatherForecast
     private val _weatherForecastError = MutableStateFlow(Result.Error<WeatherForecast>())
     val weatherForecastError: StateFlow<Result.Error<WeatherForecast>> = _weatherForecastError
