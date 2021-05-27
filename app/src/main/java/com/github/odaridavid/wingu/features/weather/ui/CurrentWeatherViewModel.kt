@@ -35,6 +35,7 @@ internal class CurrentWeatherViewModel(
 
     // region Public Api
 
+    //TODO Fire this function when some action occurs in the view
     fun getCurrentWeather(location: String) {
         viewModelScope.launch {
             getCurrentWeatherUseCase.execute(location = location)
