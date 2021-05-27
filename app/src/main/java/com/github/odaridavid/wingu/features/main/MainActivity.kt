@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.github.odaridavid.wingu.databinding.ActivityMainBinding
-import com.github.odaridavid.wingu.features.forecast.ui.ForecastViewModel
+import com.github.odaridavid.wingu.features.weather.ui.WeatherViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,17 +20,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val forecastViewModel: ForecastViewModel by viewModel()
+        val weatherViewModel: WeatherViewModel by viewModel()
 
-        setupObservableFields(forecastViewModel = forecastViewModel)
+        setupObservableFields(weatherViewModel = weatherViewModel)
     }
 
-    private fun setupObservableFields(forecastViewModel: ForecastViewModel) {
+    private fun setupObservableFields(weatherViewModel: WeatherViewModel) {
         uiStateJob = lifecycleScope.launchWhenStarted {
-            forecastViewModel.currentWeather.collect {
+            weatherViewModel.currentWeather.collect {
                 binding.currentWeatherTextView.text = it.data.toString()
             }
-            forecastViewModel.currentWeatherError.collect {
+            weatherViewModel.currentWeatherError.collect {
                 Toast.makeText(this@MainActivity, "${it.message}", Toast.LENGTH_LONG).show()
             }
         }

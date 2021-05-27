@@ -1,18 +1,19 @@
-package com.github.odaridavid.wingu.features.forecast.data
+package com.github.odaridavid.wingu.features.weather.data
 
 import com.github.odaridavid.wingu.api.WeatherStackApiService
 import com.github.odaridavid.wingu.api.models.ApiErrorResponse
 import com.github.odaridavid.wingu.api.models.CurrentWeatherResponse
 import com.github.odaridavid.wingu.api.utils.ApiErrorHandler
-import com.github.odaridavid.wingu.features.forecast.data.mappers.ApiToDomainMapper
-import com.github.odaridavid.wingu.features.forecast.domain.CurrentWeather
+import com.github.odaridavid.wingu.features.weather.data.mappers.CurrentWeatherResponseMapper
+import com.github.odaridavid.wingu.features.weather.domain.models.CurrentWeather
+import com.github.odaridavid.wingu.features.weather.domain.models.WeatherForecast
 import com.github.odaridavid.wingu.shared.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-internal class DefaultForecastsRemoteDataSource(
+internal class DefaultWeatherRemoteDataSource(
     private val apiService: WeatherStackApiService
-) : ForecastsRemoteDataSource {
+) : WeatherRemoteDataSource {
 
     // region ForecastsRemoteDataSource
 
@@ -32,6 +33,10 @@ internal class DefaultForecastsRemoteDataSource(
                 )
             }
         }
+    }
+
+    override suspend fun getWeatherForecast(location: String): Flow<Result<WeatherForecast>> {
+        TODO("Not yet implemented")
     }
 
     // endregion
@@ -54,7 +59,7 @@ internal class DefaultForecastsRemoteDataSource(
 
     private fun provideSuccessResult(response: CurrentWeatherResponse) =
         Result.Success(
-            data = ApiToDomainMapper.toDomainModel(
+            data = CurrentWeatherResponseMapper.toDomainModel(
                 currentWeatherResponse = response
             )
         )

@@ -1,4 +1,4 @@
-package com.github.odaridavid.wingu.features.forecast.domain
+package com.github.odaridavid.wingu.features.weather.domain.models
 
 internal data class CurrentWeather(
     val location: String,
