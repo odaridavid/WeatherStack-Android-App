@@ -4,17 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.odaridavid.wingu.features.weather.domain.models.CurrentWeather
 import com.github.odaridavid.wingu.features.weather.domain.usecases.GetCurrentWeatherUseCase
-import com.github.odaridavid.wingu.features.weather.domain.usecases.GetWeatherForecastUseCase
 import com.github.odaridavid.wingu.shared.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-internal class WeatherViewModel(
-    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
-    private val getWeatherForecastUseCase: GetWeatherForecastUseCase
+internal class CurrentWeatherViewModel(
+    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase
 ) : ViewModel() {
+
+    // region Members
 
     private val _currentWeather = MutableStateFlow(
         Result.Success(
@@ -28,14 +28,16 @@ internal class WeatherViewModel(
         )
     )
     val currentWeather: StateFlow<Result.Success<CurrentWeather>> = _currentWeather
-
     private val _currentWeatherError = MutableStateFlow(Result.Error<CurrentWeather>())
     val currentWeatherError: StateFlow<Result.Error<CurrentWeather>> = _currentWeatherError
 
-    init {
+    // endregion
+
+    // region Public Api
+
+    fun getCurrentWeather(location: String) {
         viewModelScope.launch {
-            //TODO Input location from view
-            getCurrentWeatherUseCase.execute(location = "New York")
+            getCurrentWeatherUseCase.execute(location = location)
                 .collect { currentWeatherResult ->
                     when (currentWeatherResult) {
                         is Result.Success<CurrentWeather> -> {
@@ -49,4 +51,5 @@ internal class WeatherViewModel(
         }
     }
 
+    // endregion
 }

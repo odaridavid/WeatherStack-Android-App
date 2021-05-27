@@ -5,7 +5,8 @@ import com.github.odaridavid.wingu.features.weather.data.*
 import com.github.odaridavid.wingu.features.weather.domain.WeatherRepository
 import com.github.odaridavid.wingu.features.weather.domain.usecases.GetCurrentWeatherUseCase
 import com.github.odaridavid.wingu.features.weather.domain.usecases.GetWeatherForecastUseCase
-import com.github.odaridavid.wingu.features.weather.ui.WeatherViewModel
+import com.github.odaridavid.wingu.features.weather.ui.CurrentWeatherViewModel
+import com.github.odaridavid.wingu.features.weather.ui.TomorrowsWeatherViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -27,8 +28,13 @@ val weatherFeatureModule = module {
     single { provideGetWeatherForecastUseCase(weatherRepository = get()) }
 
     viewModel {
-        WeatherViewModel(
-            getCurrentWeatherUseCase = get(),
+        CurrentWeatherViewModel(
+            getCurrentWeatherUseCase = get()
+        )
+    }
+
+    viewModel {
+        TomorrowsWeatherViewModel(
             getWeatherForecastUseCase = get()
         )
     }
