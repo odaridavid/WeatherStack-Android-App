@@ -39,6 +39,8 @@ internal class TomorrowsWeatherForecastFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val tomorrowsWeatherForecastViewModel: TomorrowsWeatherForecastViewModel by viewModel()
         setupObservableFields(tomorrowsWeatherForecastViewModel = tomorrowsWeatherForecastViewModel)
+
+        tomorrowsWeatherForecastViewModel.getWeatherForecast(location = "New York")
     }
 
     override fun onDestroyView() {

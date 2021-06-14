@@ -33,7 +33,6 @@ internal class TomorrowsWeatherForecastViewModel(
 
     // region Public Api
 
-    //TODO Fire this function when some action occurs in the view
     fun getWeatherForecast(location: String) {
         viewModelScope.launch {
             getWeatherForecastUseCase.execute(location = location)

@@ -39,6 +39,9 @@ internal class CurrentWeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val currentWeatherViewModel: CurrentWeatherViewModel by viewModel()
         setupObservableFields(currentWeatherViewModel = currentWeatherViewModel)
+
+        //TODO Get location from location services/gps/input field
+        currentWeatherViewModel.getCurrentWeather(location = "New York")
     }
 
     override fun onDestroyView() {
