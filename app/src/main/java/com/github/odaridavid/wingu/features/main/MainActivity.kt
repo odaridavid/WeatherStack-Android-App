@@ -3,7 +3,6 @@ package com.github.odaridavid.wingu.features.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.github.odaridavid.wingu.R
 import com.github.odaridavid.wingu.databinding.ActivityMainBinding
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     // region Members
 
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     // endregion
 
@@ -37,8 +36,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
-            R.id.action_search_area -> {
-                Snackbar.make(binding.root,"To Be Done :)",Snackbar.LENGTH_SHORT).show()
+            R.id.action_search -> {
+                Snackbar.make(binding.root, "To Be Done :)", Snackbar.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

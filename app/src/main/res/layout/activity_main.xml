@@ -9,6 +9,8 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/weatherDashboardTabLayout"
         android:layout_width="match_parent"
+        app:tabTextColor="?attr/colorOnPrimary"
+        app:tabIndicatorColor="@color/grey_800_light"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>
 
