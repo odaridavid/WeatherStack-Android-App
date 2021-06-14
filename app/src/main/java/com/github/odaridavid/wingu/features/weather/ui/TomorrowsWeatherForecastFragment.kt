@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.github.odaridavid.wingu.R
 import com.github.odaridavid.wingu.databinding.FragmentTomorrowsWeatherBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -55,12 +57,15 @@ internal class TomorrowsWeatherForecastFragment : Fragment() {
 
     private fun setupObservableFields(tomorrowsWeatherForecastViewModel: TomorrowsWeatherForecastViewModel) {
         uiStateJob = lifecycleScope.launchWhenStarted {
-            tomorrowsWeatherForecastViewModel.weatherForecast.collect {
-                //TODO Make this data human readable
-                binding.currentWeatherTextView.text = it.data.toString()
+            tomorrowsWeatherForecastViewModel.weatherForecast.collect { success->
+                binding.currentWeatherTextView.text = success.data.toString()
             }
-            tomorrowsWeatherForecastViewModel.weatherForecastError.collect {
-                // TODO Display error
+            tomorrowsWeatherForecastViewModel.weatherForecastError.collect { error ->
+                Snackbar.make(
+                    binding.root,
+                    error.message ?: getString(R.string.default_error_message),
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }

@@ -4,4 +4,7 @@
     <!--Tab titles-->
     <string name="tab_title_today">Today</string>
     <string name="tab_title_tomorrow">Tomorrow</string>
+
+    <!--Default/Fallback Strings-->
+    <string name="default_error_message">Oops! Something Went Wrong :(</string>
 </resources>
