@@ -29,8 +29,10 @@ The viewmodels then make use of the usecases that they need , this form of abstr
 
 The plan is to have unit & integration testing for logic i.e upto the viewmodel layer and maybe have ui tests if necessary.
 
-Personally i am not a fan of unit tests , they easily get flaky and slow down the CI pipelines.If you have QA engineers I also don't deem them necessary
+Personally i am not a fan of ui tests , they easily get flaky and slow down the CI pipelines.If you have QA engineers I also don't deem them necessary
 in that case since they'll have their own automation tests.
+
+A sample of doing parameterized tests with Junit5 has been done for the `ApiErroHandler`.
 
 ## To Note
 
