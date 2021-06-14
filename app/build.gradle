@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'de.mannodermaus.android-junit5'
 }
 
 kapt {
@@ -74,13 +75,16 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.0.2"
 
     //Image Loading
-    implementation"io.coil-kt:coil:1.2.2"
+    implementation "io.coil-kt:coil:1.2.2"
 
     // Test Libs
     testImplementation 'junit:junit:4.13.2'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.1"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.7.1"
 }
 
-String getWeatherStackAccessKey(){
+String getWeatherStackAccessKey() {
     Properties properties = new Properties()
     def propertiesFile = project.rootProject.file('local.properties')
     if (!propertiesFile.exists()) return System.getenv("WEATHERSTACK_ACCESS_KEY")
