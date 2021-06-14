@@ -73,6 +73,9 @@ dependencies {
     // DI/Service Locator
     implementation "io.insert-koin:koin-android:3.0.2"
 
+    //Image Loading
+    implementation"io.coil-kt:coil:1.2.2"
+
     // Test Libs
     testImplementation 'junit:junit:4.13.2'
 }

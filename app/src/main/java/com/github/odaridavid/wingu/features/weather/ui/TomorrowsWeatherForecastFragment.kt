@@ -40,6 +40,7 @@ internal class TomorrowsWeatherForecastFragment : Fragment() {
         val tomorrowsWeatherForecastViewModel: TomorrowsWeatherForecastViewModel by viewModel()
         setupObservableFields(tomorrowsWeatherForecastViewModel = tomorrowsWeatherForecastViewModel)
 
+        // TODO Use value from shared viewmodel
         tomorrowsWeatherForecastViewModel.getWeatherForecast(location = "New York")
     }
 
@@ -60,7 +61,7 @@ internal class TomorrowsWeatherForecastFragment : Fragment() {
     private fun setupObservableFields(tomorrowsWeatherForecastViewModel: TomorrowsWeatherForecastViewModel) {
         uiStateJob = lifecycleScope.launchWhenStarted {
             tomorrowsWeatherForecastViewModel.weatherForecast.collect { success->
-                binding.currentWeatherTextView.text = success.data.toString()
+                binding.tomorrowMaxMinTempTextView.text = "Day ${success.data.maxTemp} - ${success.data.minTemp} Night"
             }
             tomorrowsWeatherForecastViewModel.weatherForecastError.collect { error ->
                 Snackbar.make(

@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/currentWeatherTextView"
+        android:id="@+id/currentWeatherLocationTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="New York" />
+
+    <TextView
+        android:id="@+id/currentWeatherTemperatureTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+        app:layout_constraintStart_toEndOf="@+id/currentWeatherIconsImageView"
+        app:layout_constraintTop_toBottomOf="@id/currentWeatherLocationTextView"
+        tools:text="19" />
+
+    <ImageView
+        android:id="@+id/currentWeatherIconsImageView"
+        android:layout_width="48dp"
+        android:contentDescription="@string/weather_icon_content_description"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/currentWeatherTemperatureTextView"
+        app:layout_constraintEnd_toStartOf="@id/currentWeatherTemperatureTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/currentWeatherTemperatureTextView" />
+
+    <TextView
+        android:id="@+id/currentWeatherFeelsLikeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        app:layout_constraintTop_toBottomOf="@id/currentWeatherTemperatureTextView"
+        tools:text="Feels like 19 - Overcast" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.github.odaridavid.wingu.R
 import com.github.odaridavid.wingu.databinding.FragmentCurrentWeatherBinding
 import com.google.android.material.snackbar.Snackbar
@@ -40,7 +41,7 @@ internal class CurrentWeatherFragment : Fragment() {
         val currentWeatherViewModel: CurrentWeatherViewModel by viewModel()
         setupObservableFields(currentWeatherViewModel = currentWeatherViewModel)
 
-        //TODO Get location from location services/gps/input field
+        //TODO Use Value from shared vm
         currentWeatherViewModel.getCurrentWeather(location = "New York")
     }
 
@@ -61,7 +62,22 @@ internal class CurrentWeatherFragment : Fragment() {
     private fun setupObservableFields(currentWeatherViewModel: CurrentWeatherViewModel) {
         uiStateJob = lifecycleScope.launchWhenStarted {
             currentWeatherViewModel.currentWeather.collect { success ->
-                binding.currentWeatherTextView.text = success.data.toString()
+                binding.currentWeatherLocationTextView.text = success.data.location
+                binding.currentWeatherTemperatureTextView.text = success.data.temperature
+                if (success.data.weatherIcons.isNotEmpty())
+                    binding.currentWeatherIconsImageView.load(
+                        success.data.weatherIcons[0]
+                    )
+                else
+                    binding.currentWeatherIconsImageView.load(
+                        R.drawable.ic_baseline_cloud_24
+                    )
+
+                binding.currentWeatherFeelsLikeTextView.text =
+                    if (success.data.weatherDescriptions.isNotEmpty())
+                        "${success.data.temperatureFeelsLike} - ${success.data.weatherDescriptions[0]}"
+                    else
+                        success.data.temperatureFeelsLike
             }
             currentWeatherViewModel.currentWeatherError.collect { error ->
                 Snackbar.make(
