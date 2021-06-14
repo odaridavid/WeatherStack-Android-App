@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Wingu</string>
+
+    <!--Tab titles-->
+    <string name="tab_title_today">Today</string>
+    <string name="tab_title_tomorrow">Tomorrow</string>
 </resources>
